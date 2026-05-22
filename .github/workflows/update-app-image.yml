@@ -43,7 +43,6 @@ jobs:
         run: |
           import json
           import os
-          import re
           from pathlib import Path
 
           if os.environ["EVENT_NAME"] == "repository_dispatch":
@@ -59,20 +58,34 @@ jobs:
               digest = os.environ.get("INPUT_DIGEST", "")
 
           path = Path("apps.yml")
-          text = path.read_text()
-          block_re = re.compile(rf'(- id: "{re.escape(app_id)}"
-(?:(?!
-- id: ).)*?provider_config:
-(?:(?!
-- id: ).)*?image: ")[^"]+(")', re.S)
-          new_text, count = block_re.subn(rf'{image}:{tag}', text, count=1)
-          if count != 1:
+          lines = path.read_text().splitlines()
+          in_app = False
+          updated = False
+          digest_written = False
+          output = []
+
+          for line in lines:
+              if line.startswith('- id: '):
+                  in_app = line == f'- id: "{app_id}"'
+              if in_app and line.strip().startswith('image: '):
+                  indent = line[:len(line) - len(line.lstrip())]
+                  output.append(f'{indent}image: "{image}:{tag}"')
+                  updated = True
+                  continue
+              if in_app and digest and 'Last published digest:' in line:
+                  if not digest_written:
+                      output.append(f'  # Last published digest: {digest}')
+                      digest_written = True
+                  continue
+              output.append(line)
+              if in_app and digest and line.strip() == 'url: "https://github.com/Serph91P/docker-webtop-plezy"' and not digest_written:
+                  output.append(f'  # Last published digest: {digest}')
+                  digest_written = True
+
+          if not updated:
               raise SystemExit(f"Could not update app_id={app_id}")
-          if digest:
-              new_text = re.sub(rf'(url: "https://github.com/Serph91P/docker-webtop-plezy"
-)', rf'  # Last published digest: {digest}
-', new_text, count=1)
-          path.write_text(new_text)
+
+          path.write_text("\n".join(output) + "\n")
 
       - name: Show diff
         run: git diff -- apps.yml

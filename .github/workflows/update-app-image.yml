@@ -1,0 +1,91 @@
+name: Update app image
+
+on:
+  repository_dispatch:
+    types:
+      - update-app-image
+  workflow_dispatch:
+    inputs:
+      app_id:
+        description: App id in apps.yml
+        required: true
+        default: webtop-plezy
+      image:
+        description: Image repository without tag
+        required: true
+        default: ghcr.io/serph91p/docker-webtop-plezy
+      tag:
+        description: Image tag
+        required: true
+      digest:
+        description: Image digest for audit trail
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Update apps.yml
+        shell: python
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          INPUT_APP_ID: ${{ inputs.app_id }}
+          INPUT_IMAGE: ${{ inputs.image }}
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_DIGEST: ${{ inputs.digest }}
+        run: |
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          if os.environ["EVENT_NAME"] == "repository_dispatch":
+              payload = json.loads(os.environ["DISPATCH_PAYLOAD"])
+              app_id = payload["app_id"]
+              image = payload["image"]
+              tag = payload["tag"]
+              digest = payload.get("digest", "")
+          else:
+              app_id = os.environ["INPUT_APP_ID"]
+              image = os.environ["INPUT_IMAGE"]
+              tag = os.environ["INPUT_TAG"]
+              digest = os.environ.get("INPUT_DIGEST", "")
+
+          path = Path("apps.yml")
+          text = path.read_text()
+          block_re = re.compile(rf'(- id: "{re.escape(app_id)}"
+(?:(?!
+- id: ).)*?provider_config:
+(?:(?!
+- id: ).)*?image: ")[^"]+(")', re.S)
+          new_text, count = block_re.subn(rf'{image}:{tag}', text, count=1)
+          if count != 1:
+              raise SystemExit(f"Could not update app_id={app_id}")
+          if digest:
+              new_text = re.sub(rf'(url: "https://github.com/Serph91P/docker-webtop-plezy"
+)', rf'  # Last published digest: {digest}
+', new_text, count=1)
+          path.write_text(new_text)
+
+      - name: Show diff
+        run: git diff -- apps.yml
+
+      - name: Commit update
+        shell: bash
+        run: |
+          if git diff --quiet -- apps.yml; then
+            echo "apps.yml already up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add apps.yml
+          git commit -m "store: update webtop-plezy image"
+          git push

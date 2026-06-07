@@ -51,10 +51,10 @@ apps:
   name: "Plezy"
   logo: "https://raw.githubusercontent.com/edde746/plezy/main/assets/plezy.png"
   url: "https://github.com/Serph91P/docker-webtop-plezy"
-  # Last published digest: sha256:8cee0d601f87059fc897ef2be3d2d2400bf6e3fb4d5ced840a231727bb27b0ae
+  # Last published digest: sha256:581c6aebd5ec92842330d5cdaaa37bd15d5bf035d877576e43059112b7917b19
   provider: "docker"
   provider_config:
-    image: "ghcr.io/serph91p/docker-webtop-plezy:2.3.0-ls4"
+    image: "ghcr.io/serph91p/docker-webtop-plezy:2.4.1-ls5"
     port: 3000
     nvidia_support: true
     dri3_support: true

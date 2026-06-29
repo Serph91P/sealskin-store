@@ -100,5 +100,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add apps.yml
-          git commit -m "store: update webtop-plezy image"
+          git commit -m "store: update ${app_id} image"
           git push
+        env:
+          app_id: ${{ steps.update.outputs.app_id }}

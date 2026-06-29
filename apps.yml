@@ -66,3 +66,22 @@ apps:
     docker_overrides:
       security_opt:
         - "seccomp=unconfined"
+
+- id: "webtop-streamlink"
+  name: "Streamlink Twitch GUI"
+  logo: "https://raw.githubusercontent.com/streamlink/streamlink-twitch-gui/master/src/assets/icons/icon-256.png"
+  url: "https://github.com/Serph91P/docker-webtop-streamlink"
+  provider: "docker"
+  provider_config:
+    image: "ghcr.io/serph91p/docker-webtop-streamlink:latest"
+    port: 3000
+    nvidia_support: true
+    dri3_support: true
+    type: "desktop"
+    autostart: false
+    url_support: false
+    open_support: false
+    extensions: []
+    docker_overrides:
+      security_opt:
+        - "seccomp=unconfined"

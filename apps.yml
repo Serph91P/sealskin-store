@@ -69,7 +69,7 @@ apps:
 
 - id: "webtop-streamlink"
   name: "Streamlink Twitch GUI"
-  logo: "https://raw.githubusercontent.com/streamlink/streamlink-twitch-gui/master/src/assets/icons/icon-256.png"
+  logo: "https://raw.githubusercontent.com/streamlink/streamlink-twitch-gui/master/src/app/assets/icons/icon-256.png"
   url: "https://github.com/Serph91P/docker-webtop-streamlink"
   provider: "docker"
   provider_config:

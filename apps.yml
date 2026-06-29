@@ -73,7 +73,7 @@ apps:
   url: "https://github.com/Serph91P/docker-webtop-streamlink"
   provider: "docker"
   provider_config:
-    image: "ghcr.io/serph91p/docker-webtop-streamlink:2.5.3-ls9"
+    image: "ghcr.io/serph91p/docker-webtop-streamlink:2.5.3-ls10"
     port: 3000
     nvidia_support: true
     dri3_support: true

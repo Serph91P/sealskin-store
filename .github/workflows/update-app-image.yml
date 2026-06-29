@@ -69,7 +69,8 @@ jobs:
                   in_app = line == f'- id: "{app_id}"'
               if in_app and line.strip().startswith('image: '):
                   indent = line[:len(line) - len(line.lstrip())]
-                  output.append(f'{indent}image: "{image}:{tag}"')
+                  # Use :latest so Sealskin pulls newest image on every update
+                  output.append(f'{indent}image: "{image}:latest"')
                   updated = True
                   continue
               if in_app and digest and 'Last published digest:' in line:

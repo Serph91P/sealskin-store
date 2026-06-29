@@ -54,7 +54,7 @@ apps:
   # Last published digest: sha256:fef3a8e5af84f15ce9f0d22745a9ef0ad2e925b7137635a38a743b5409fe37c3
   provider: "docker"
   provider_config:
-    image: "ghcr.io/serph91p/docker-webtop-plezy:2.8.0-ls11"
+    image: "ghcr.io/serph91p/docker-webtop-plezy:latest"
     port: 3000
     nvidia_support: true
     dri3_support: true
@@ -73,7 +73,7 @@ apps:
   url: "https://github.com/Serph91P/docker-webtop-streamlink"
   provider: "docker"
   provider_config:
-    image: "ghcr.io/serph91p/docker-webtop-streamlink:2.5.3-20260629.13"
+    image: "ghcr.io/serph91p/docker-webtop-streamlink:latest"
     port: 3000
     nvidia_support: true
     dri3_support: true

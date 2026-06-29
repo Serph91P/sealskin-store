@@ -4,7 +4,10 @@ Custom Sealskin app store for Serph91P webtop images.
 
 ## Apps
 
-- VS Code: `ghcr.io/serph91p/docker-webtop-vscode:latest`
-- Plezy: updated automatically by `docker-webtop-plezy` releases
+| App | Image | Auto-update |
+|-----|-------|-------------|
+| VS Code | `ghcr.io/serph91p/docker-webtop-vscode:latest` | Manual |
+| Plezy | `ghcr.io/serph91p/docker-webtop-plezy` | Release dispatch |
+| Streamlink Twitch GUI | `ghcr.io/serph91p/docker-webtop-streamlink` | Release dispatch |
 
-The Plezy image repo triggers this store with `repository_dispatch` after successful builds.
+Image repos trigger this store with `repository_dispatch` after successful builds.

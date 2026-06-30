@@ -85,22 +85,3 @@ apps:
     docker_overrides:
       security_opt:
         - "seccomp=unconfined"
-
-- id: "webtop-streamlink-nightly"
-  name: "Streamlink Twitch GUI (Nightly)"
-  logo: "https://raw.githubusercontent.com/streamlink/streamlink-twitch-gui/master/src/app/assets/icons/icon-256.png"
-  url: "https://github.com/Serph91P/docker-webtop-streamlink-nightly"
-  provider: "docker"
-  provider_config:
-    image: "ghcr.io/serph91p/docker-webtop-streamlink-nightly:latest"
-    port: 3000
-    nvidia_support: true
-    dri3_support: true
-    type: "desktop"
-    autostart: false
-    url_support: false
-    open_support: false
-    extensions: []
-    docker_overrides:
-      security_opt:
-        - "seccomp=unconfined"

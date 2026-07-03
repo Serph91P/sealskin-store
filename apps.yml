@@ -90,7 +90,7 @@ apps:
   name: "Firefox VPN"
   logo: "https://raw.githubusercontent.com/mozilla-firefox/firefox/main/browser/branding/official/default256.png"
   url: "https://github.com/Serph91P/docker-webtop-firefox"
-  # Last published digest: sha256:6e4ff5e583ed7555c3c43ecd0b86a1315350b8e76fe6a4bb931c8a257cd53929
+  # Last published digest: sha256:61dbc8ab21acd2761bd9ffcbfebe7b016fe8673b32ee7168d5690b05303c91e9
   provider: "docker"
   provider_config:
     image: "ghcr.io/serph91p/docker-webtop-firefox:latest"

@@ -32,6 +32,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Update apps.yml
+        id: update
         shell: python
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -79,7 +80,7 @@ jobs:
                       digest_written = True
                   continue
               output.append(line)
-              if in_app and digest and line.strip() == 'url: "https://github.com/Serph91P/docker-webtop-plezy"' and not digest_written:
+              if in_app and digest and line.strip().startswith("url: ") and not digest_written:
                   output.append(f'  # Last published digest: {digest}')
                   digest_written = True
 
@@ -87,6 +88,10 @@ jobs:
               raise SystemExit(f"Could not update app_id={app_id}")
 
           path.write_text("\n".join(output) + "\n")
+          github_output = os.environ.get("GITHUB_OUTPUT")
+          if github_output:
+              with open(github_output, "a", encoding="utf-8") as handle:
+                  handle.write(f"app_id={app_id}\n")
 
       - name: Show diff
         run: git diff -- apps.yml

@@ -85,3 +85,41 @@ apps:
     docker_overrides:
       security_opt:
         - "seccomp=unconfined"
+
+- id: "webtop-firefox"
+  name: "Firefox VPN"
+  logo: "https://raw.githubusercontent.com/mozilla-firefox/firefox/main/browser/branding/official/default256.png"
+  url: "https://github.com/Serph91P/docker-webtop-firefox"
+  provider: "docker"
+  provider_config:
+    image: "ghcr.io/serph91p/docker-webtop-firefox:latest"
+    port: 3000
+    nvidia_support: true
+    dri3_support: true
+    type: "desktop"
+    autostart: false
+    url_support: true
+    open_support: false
+    extensions: []
+    docker_overrides:
+      security_opt:
+        - "seccomp=unconfined"
+
+- id: "webtop-brave"
+  name: "Brave VPN"
+  logo: "https://raw.githubusercontent.com/brave/brave-browser/master/app/theme/brave/product_logo_256.png"
+  url: "https://github.com/Serph91P/docker-webtop-brave"
+  provider: "docker"
+  provider_config:
+    image: "ghcr.io/serph91p/docker-webtop-brave:latest"
+    port: 3000
+    nvidia_support: true
+    dri3_support: true
+    type: "desktop"
+    autostart: false
+    url_support: true
+    open_support: false
+    extensions: []
+    docker_overrides:
+      security_opt:
+        - "seccomp=unconfined"

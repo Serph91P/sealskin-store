@@ -110,6 +110,7 @@ apps:
   name: "Brave VPN"
   logo: "https://raw.githubusercontent.com/brave/brave-browser/master/app/theme/brave/product_logo_256.png"
   url: "https://github.com/Serph91P/docker-webtop-brave"
+  # Last published digest: sha256:dd338c7cec8b8d19140904e06bf0cfa428124efdceb759c7d0859e50c83038a0
   provider: "docker"
   provider_config:
     image: "ghcr.io/serph91p/docker-webtop-brave:latest"

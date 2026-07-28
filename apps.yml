@@ -51,7 +51,7 @@ apps:
   name: "Plezy"
   logo: "https://raw.githubusercontent.com/edde746/plezy/main/assets/plezy.png"
   url: "https://github.com/Serph91P/docker-webtop-plezy"
-  # Last published digest: sha256:afc7c422c944fd1fa6d5798ab14fd35011fa5d828e5266afef1737fc839e6ec4
+  # Last published digest: sha256:dfd2adb226fba15545117173eeabe50f6aa6046384a3f77d0d4137ee19d30021
   provider: "docker"
   provider_config:
     image: "ghcr.io/serph91p/docker-webtop-plezy:latest"
